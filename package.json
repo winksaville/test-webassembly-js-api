@@ -1,14 +1,18 @@
 {
   "scripts": {
     "pretest": "tsc -p test/tsconfig.json",
-    "test": "../node/node --expose_wasm test/wasm.js"
+    "test": "DEBUG=wasm.spec ../node/node --expose_wasm node_modules/.bin/alsatian build/WebAssembly.spec.js --tap | tap-fail-exit-one"
   },
   "devDependencies": {
+    "@types/debug": "^0.0.29",
     "@types/node": "^7.0.12",
     "@types/webassembly-js-api.d.ts": "file:../webassembly-js-api.d.ts",
+    "tap-fail-exit-one": "^1.0.0-beta.1",
     "typescript": "^2.2.2"
   },
   "dependencies": {
+    "alsatian": "^1.3.0",
+    "debug": "^2.6.3",
     "node": "^0.0.0"
   }
 }

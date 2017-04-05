@@ -1,4 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
-  "files": ["wasm"]
+  "compilerOptions": {
+      "outDir": "../build"
+  },
+  "files": [
+      "WebAssembly.spec.ts"
+  ]
 }
