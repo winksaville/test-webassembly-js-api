@@ -74,8 +74,11 @@ export class WebAssemblyTests {
 
     @AsyncTest("Test readFileAsync")
     public async testReadFileAsync() {
-        await readFileAsync("./src/addTwo.wasm");
-        //let data = await readFileAsync("./test/addTwo.wasm");
-        //Expect(data).not.Empty();
+        let data = await readFileAsync("./src/data.txt");
+        Expect(data.length).toBe(9);
+        for (let i=0; i < data.length-1; i++) {
+            Expect(data[i]).toBe(i + 0x31);
+        }
+        Expect(data[data.length-1]).toBe(0x0a);
     }
 }
