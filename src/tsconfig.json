@@ -4,6 +4,6 @@
       "outDir": "../build"
   },
   "files": [
-      "WebAssembly.spec.ts"
+      "webassembly-js-api.spec.ts"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "pretest": "tsc -p test/tsconfig.json",
-    "test": "DEBUG=wasm.spec ../node/node --expose_wasm node_modules/.bin/alsatian build/WebAssembly.spec.js --tap | tap-fail-exit-one"
+    "pretest": "tsc -p src/tsconfig.json",
+    "test": "DEBUG=wasm.spec ../node/node --expose_wasm node_modules/.bin/alsatian build/webassembly-js-api.spec.js --tap | tap-fail-exit-one"
   },
   "devDependencies": {
     "@types/debug": "^0.0.29",

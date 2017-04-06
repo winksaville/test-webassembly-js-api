@@ -19,12 +19,12 @@ const debug = debugModule("wasm.spec");
 @TestFixture("WebAssembly JS API tests")
 export class WebAssemblyTests {
     @SetupFixture
-    public async setupFixture() {
+    public setupFixture() {
         debug("setupFixture:#");
     }
 
     @TeardownFixture
-    public async teardownFixture() {
+    public teardownFixture() {
         debug("setupFixture:#");
     }
 
@@ -38,13 +38,16 @@ export class WebAssemblyTests {
     @TestCase(0, 0xFF)
     @TestCase(0xFF, 0)
     @TestCase(0xFF, 0xFF)
-    public testWasmMemory(v1: number, v2: number) {
-        // Memory
+    public testMemory(v1: number, v2: number) {
+        // Create Memory arena
         let memory = new WebAssembly.Memory({initial: 2, maximum: 8});
+
+        // Check grow
         let growResult = memory.grow(6);
         debug(`growResult=${growResult}`);
         Expect(growResult).toBe(2);
 
+        // Check
         let u8 = new Uint8Array(memory.buffer);
         u8[0] = v1;
         u8[1] = v2;
