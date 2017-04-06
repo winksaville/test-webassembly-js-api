@@ -11,7 +11,7 @@ import {
 } from "alsatian";
 
 import * as debugModule from "debug";
-const debug = debugModule("wasm.spec");
+const debug = debugModule("webassembly-js-api.spec");
 
 /**
  * Test WebAssembly JS API
@@ -25,7 +25,25 @@ export class WebAssemblyTests {
 
     @TeardownFixture
     public teardownFixture() {
-        debug("setupFixture:#");
+        debug("teardownFixture:#");
+    }
+
+    @Test("Test WebAssembly Memory grow")
+    @TestCase(1, 3, 1, 1)
+    @TestCase(4, 8, 1, 3)
+    public testMemoryGrow(initialSize: number,maxSize: number, growSize1: number, growSize2: number) {
+        // Create Memory arena
+        let memory = new WebAssembly.Memory({initial: initialSize, maximum: maxSize});
+
+        // Check growSize1
+        let growResult = memory.grow(growSize1);
+        debug(`growResult=${growResult}`);
+        Expect(growResult).toBe(initialSize);
+
+        // Check growSize2
+        growResult = memory.grow(growSize2);
+        debug(`growResult=${growResult}`);
+        Expect(growResult).toBe(initialSize + growSize1);
     }
 
     @Test("Test WebAssembly Memory")
@@ -42,18 +60,12 @@ export class WebAssemblyTests {
         // Create Memory arena
         let memory = new WebAssembly.Memory({initial: 2, maximum: 8});
 
-        // Check grow
-        let growResult = memory.grow(6);
-        debug(`growResult=${growResult}`);
-        Expect(growResult).toBe(2);
-
-        // Check
+        // Check we can read and write it
         let u8 = new Uint8Array(memory.buffer);
         u8[0] = v1;
         u8[1] = v2;
-        console.log(`u8[0]=${u8[0].toString(16)}`);
+        debug(`u8[0]=${u8[0]} u8[1]=${u8[1]}`);
         Expect(u8[0]).toBe(v1);
-        console.log(`u8[1]=${u8[1].toString(16)}`);
         Expect(u8[1]).toBe(v2);
     }
 }

@@ -1,7 +1,9 @@
 {
   "scripts": {
     "pretest": "tsc -p src/tsconfig.json",
-    "test": "DEBUG=wasm.spec ../node/node --expose_wasm node_modules/.bin/alsatian build/webassembly-js-api.spec.js --tap | tap-fail-exit-one"
+    "test": "../node/node --expose_wasm node_modules/.bin/alsatian build/webassembly-js-api.spec.js --tap | tap-fail-exit-one",
+    "predbg": "yarn pretest",
+    "dbg": "DEBUG=webassembly-js-api.spec yarn test"
   },
   "devDependencies": {
     "@types/debug": "^0.0.29",
