@@ -2,13 +2,16 @@
  * Test WebAssembly
  */
 import {
-    SetupFixture,
+    AsyncTest,
     Expect,
+    SetupFixture,
     TeardownFixture,
     Test,
     TestCase,
     TestFixture,
 } from "alsatian";
+
+import {readFileAsync} from "../build/utils";
 
 import * as debugModule from "debug";
 const debug = debugModule("webassembly-js-api.spec");
@@ -67,5 +70,12 @@ export class WebAssemblyTests {
         debug(`u8[0]=${u8[0]} u8[1]=${u8[1]}`);
         Expect(u8[0]).toBe(v1);
         Expect(u8[1]).toBe(v2);
+    }
+
+    @AsyncTest("Test readFileAsync")
+    public async testReadFileAsync() {
+        await readFileAsync("./src/addTwo.wasm");
+        //let data = await readFileAsync("./test/addTwo.wasm");
+        //Expect(data).not.Empty();
     }
 }

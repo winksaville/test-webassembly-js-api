@@ -1,9 +1,12 @@
 {
   "scripts": {
-    "pretest": "tsc -p src/tsconfig.json",
+    "build:utils": "tsc -p src/utils.tsconfig.json",
+    "build:webassembly-js-api": "tsc -p src/webassembly-js-api.tsconfig.json",
+    "pretest": "yarn build:utils && yarn build:webassembly-js-api",
     "test": "../node/node --expose_wasm node_modules/.bin/alsatian build/webassembly-js-api.spec.js --tap | tap-fail-exit-one",
     "predbg": "yarn pretest",
-    "dbg": "DEBUG=webassembly-js-api.spec yarn test"
+    "dbg": "DEBUG=webassembly-js-api.spec yarn test",
+    "cleanup": "rm -rf build"
   },
   "devDependencies": {
     "@types/debug": "^0.0.29",
