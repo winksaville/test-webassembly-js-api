@@ -19,3 +19,8 @@
 ```
 yarn test
 ```
+
+## Debug
+```
+yarn dbg
+```
